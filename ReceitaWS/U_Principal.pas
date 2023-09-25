@@ -5,15 +5,15 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, IdBaseComponent,
-  IdComponent, IdTCPConnection, IdTCPClient, IdHTTP, Data.Bind.Components, Data.Bind.ObjectScope,
+  IdComponent, IdTCPConnection, IdTCPClient, IdHTTP, Data.Bind.Components, Data.Bind.ObjectScope, Vcl.ComCtrls, Vcl.ExtCtrls, Vcl.Buttons,
 
   REST.Client,
   Web.HTTPApp,
   REST.Types,
-  System.JSON, Vcl.ComCtrls, Vcl.ExtCtrls, Vcl.Buttons;
+  System.JSON, Vcl.Imaging.pngimage;
 
 type
-  TForm1 = class(TForm)
+  TFrm_Principal = class(TForm)
     RESTClient: TRESTClient;
     RESTRequest: TRESTRequest;
     Memo: TMemo;
@@ -23,6 +23,7 @@ type
     Edt_CNPJ: TEdit;
     Btn_Consultar: TBitBtn;
     Label1: TLabel;
+    Image1: TImage;
     procedure Btn_ConsultarClick(Sender: TObject);
     procedure Edt_CNPJKeyPress(Sender: TObject; var Key: Char);
   private
@@ -32,13 +33,13 @@ type
   end;
 
 var
-  Form1: TForm1;
+  Frm_Principal: TFrm_Principal;
 
 implementation
 
 {$R *.dfm}
 
-procedure TForm1.Btn_ConsultarClick(Sender: TObject);
+procedure TFrm_Principal.Btn_ConsultarClick(Sender: TObject);
 var
  {Retorno do meu JSON}
  Retorno : TJSONObject;
@@ -88,10 +89,17 @@ begin
   Lb_Atividade.Caption := 'Atividade principal: ' + Atividade;
 end;
 
-procedure TForm1.Edt_CNPJKeyPress(Sender: TObject; var Key: Char);
+procedure TFrm_Principal.Edt_CNPJKeyPress(Sender: TObject; var Key: Char);
 begin
- if not (Key in ['0'..'9', #8]) then
+ if not (Key in ['0'..'9', #8, #13]) then
   Key := #0;
+
+ if key = #13 then
+  begin
+   key := #0;
+   Btn_Consultar.Click;
+  end;
+
 end;
 
 end.

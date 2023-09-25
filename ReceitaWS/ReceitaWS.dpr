@@ -2,13 +2,13 @@ program ReceitaWS;
 
 uses
   Vcl.Forms,
-  U_Principal in 'U_Principal.pas' {Form1};
+  U_Principal in 'U_Principal.pas' {Frm_Principal};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TFrm_Principal, Frm_Principal);
   Application.Run;
 end.
